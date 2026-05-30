@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goal-Oriented Action Planning with Reinforcement Learning Adversarial Agents in a Discrete 2D Environment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Goal-Oriented Action Planning with Reinforcement Learning<br> Adversarial Agents in a Discrete 2D Environment</h1>
+  <!-- GOAP modules -->
+  <div class="panel">
+    <h3>GOAP modules</h3>
+    <div class="ctrl-grid">
+
+      <div class="ctrl-card">
+        <div class="ctrl-info">
+          <div class="ctrl-name">Pounce</div>
+          <div class="ctrl-desc">Jump 3 cells, 4-cycle CD, Costs 5 Energy</div>
+        </div>
+        <div class="toggle-track on" id="pounce-track" onclick="toggleMod('pounce')">
+          <div class="toggle-thumb"></div>
+        </div>
+        <span class="badge badge-on" id="pounce-badge">ON</span>
+      </div>
+
+      <div class="ctrl-card">
+        <div class="ctrl-info">
+          <div class="ctrl-name">Rest</div>
+          <div class="ctrl-desc">Rest 2 cycles after every 5 moves</div>
+        </div>
+        <div class="toggle-track on" id="rest-track" onclick="toggleMod('rest')">
+          <div class="toggle-thumb"></div>
+        </div>
+        <span class="badge badge-on" id="rest-badge">ON</span>
+      </div>
+
+      <div class="ctrl-card">
+        <div class="ctrl-info">
+          <div class="ctrl-name">Energy</div>
+          <div class="ctrl-desc">80 Energy, Refill at Food, −1/Move, −5/Pounce</div>
+        </div>
+        <div class="toggle-track on" id="energy-track" onclick="toggleMod('energy')">
+          <div class="toggle-thumb"></div>
+        </div>
+        <span class="badge badge-on" id="energy-badge">ON</span>
+      </div>
+
+    </div>
+
+    <!-- World & training settings -->
+    <h3 style="margin-top:12px">world &amp; training settings</h3>
+    <div class="ctrl-grid">
+
+      <div class="ctrl-card">
+        <div class="ctrl-info">
+          <div class="ctrl-name">Randomize Environment</div>
+          <div class="ctrl-desc" id="randenv-desc">Fixed Map for all Episodes</div>
+        </div>
+        <div class="toggle-track" id="randomenv-track" onclick="toggleMod('randomenv')">
+          <div class="toggle-thumb"></div>
+        </div>
+        <span class="badge badge-off" id="randomenv-badge">OFF</span>
+      </div>
+
+      <div class="ctrl-card">
+        <div class="ctrl-info">
+          <div class="ctrl-name">Wall Density</div>
+          <div class="ctrl-desc">Percentage of Cells Filled with Walls</div>
+        </div>
+        <input type="range" min="0" max="50" step="1" value="25" id="density-slider"
+               oninput="document.getElementById('density-val').textContent=this.value+'%'">
+        <span class="slider-val" id="density-val">25%</span>
+      </div>
+
+      <div class="ctrl-card">
+        <div class="ctrl-info">
+          <div class="ctrl-name">Window Size</div>
+          <div class="ctrl-desc">RL Observation, Applied on Train</div>
+        </div>
+        <input type="range" min="5" max="13" step="2" value="9" id="window-slider"
+               oninput="updateWindowLabel(this.value)">
+        <span class="slider-val" id="window-val">9×9</span>
+      </div>
+
+      <div class="ctrl-card">
+        <div class="ctrl-info">
+          <div class="ctrl-name">Training Runs</div>
+          <div class="ctrl-desc">Episodes per Session</div>
+        </div>
+        <input type="range" min="500" max="5000" step="500" value="500" id="runs-slider"
+               oninput="onRunsSlider(this.value)">
+        <span class="slider-val" id="runs-val">500</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- World + side panel -->
+  <div class="panel">
+    <div class="row">
+
+      <!-- Canvas -->
+      <div>
+        <h3>World</h3>
+        <div id="cv-wrap">
+          <canvas id="cv"      width="256" height="256"></canvas>
+        </div>
+        <div class="legend">
+          <div class="leg"><div class="leg-box" style="background:#2563eb"></div>GOAP</div>
+          <div class="leg"><div class="leg-box" style="background:#1d9e75"></div>Resting</div>
+          <div class="leg"><div class="leg-box" style="background:#555"></div>Exhausted</div>
+          <div class="leg"><div class="leg-box" style="background:#a78bfa"></div>RL</div>
+          <div class="leg"><div class="leg-box" style="background:#eb7f04"></div>Path</div>
+          <div class="leg"><div class="leg-box" style="background:#dc2626"></div>Pounce</div>
+          <div class="leg"><div class="leg-box" style="background:#26dc44"></div>Food</div>
+        </div>
+      </div>
+
+      <!-- Side panel -->
+      <div class="side">
+
+        <!-- Energy -->
+        <div id="energy-section" class="energy-section">
+          <div class="energy-header">
+            <span>GOAP Energy</span>
+            <span id="energy-label">80/80</span>
+          </div>
+          <div class="energy-track">
+            <div class="energy-fill" id="energy-fill" style="width:100%;background:#08d419"></div>
+          </div>
+        </div>
+
+        <!-- Stamina -->
+        <div id="stamina-section" class="stamina-section">
+          <div class="stamina-label">Stamina</div>
+          <div class="rest-bar">
+            <div class="rest-cell" id="sc0"></div>
+            <div class="rest-cell" id="sc1"></div>
+            <div class="rest-cell" id="sc2"></div>
+            <div class="rest-cell" id="sc3"></div>
+            <div class="rest-cell" id="sc4"></div>
+            <span id="rest-label"></span>
+          </div>
+        </div>
+
+        <!-- Training progress -->
+        <div class="progress-bar">
+          <div class="progress-fill" id="prog" style="width:0%"></div>
+        </div>
+        <div id="prog-label"></div>
+
+        <!-- Reward chart -->
+        <div class="chart-section">
+          <h3>episode rewards</h3>
+          <div class="chart-wrap">
+            <canvas id="chart" width="460" height="68"></canvas>
+          </div>
+        </div>
+
+        <!-- Log -->
+        <div class="log-section">
+          <h3>log</h3>
+          <div id="log"></div>
+        </div>
+
+      </div><!-- /side -->
+    </div><!-- /row -->
+  </div>
+
+  <!-- Buttons -->
+  <div class="btn-row">
+    <button class="btn" id="trainBtn" onclick="startTraining()">Train RL (500 runs)</button>
+    <button class="btn" id="playBtn"  onclick="startPlay()" disabled>Show Trained Agent</button>
+    <button class="btn"               onclick="hardReset()">Reset</button>
+  </div>
+
+  <script src="sim.js"></script>
+</body>
+</html>
