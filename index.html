@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rowan Holder — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --bg-card: #161616;
+      --bg-hover: #1e1e1e;
+      --text: #f0ede6;
+      --text-muted: #888;
+      --text-dim: #555;
+      --accent: #d60614;
+      --accent-dim: #91040e;
+      --border: #2a2a2a;
+      --border-light: #333;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    #page-planningSim {
+      padding: 0;
+      margin: 0;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-top {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      margin: 0 -2.5rem;
+      padding: 0 2.5rem;
+    }
+
+    .header-name {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .header-name:hover { color: var(--accent); }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .header-link {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .header-link:hover { color: var(--accent); }
+
+    .header-link.btn {
+      border: 1px solid var(--border-light);
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      color: var(--text);
+    }
+    .header-link.btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(200,240,74,0.05);
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      padding: 0 2.5rem;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+
+    .nav-tab {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+    .nav-tab:hover { color: var(--text); }
+    .nav-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ─── MAIN ─── */
+    main { min-height: calc(100vh - 64px - 49px); }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ─── HOME ─── */
+    .home-hero {
+      padding: 6rem 2.5rem 4rem;
+      max-width: 900px;
+    }
+
+    .home-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .home-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .home-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .home-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .home-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0d0d;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.8rem 1.8rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #d60614; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.8rem 1.8rem;
+      border: 1px solid var(--border-light);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--text-muted); }
+
+    .home-grid {
+      padding: 4rem 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      border-top: 1px solid var(--border);
+      background: var(--border);
+    }
+
+    .home-card {
+      background: var(--bg);
+      padding: 2rem;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .home-card:hover { background: var(--bg-hover); }
+
+    .home-card-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .home-card-title {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .home-card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── SECTION SHARED ─── */
+    .section-header {
+      padding: 4rem 2.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 560px;
+      font-size: 1rem;
+    }
+
+    /* ─── PROJECT LIST ─── */
+    .project-list {
+      padding: 0 2.5rem;
+    }
+
+    .project-entry {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-entry:last-child { border-bottom: none; }
+
+    .project-entry-text {}
+
+    .project-entry-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-entry-title {
+      font-family: var(--serif);
+      font-size: 2rem;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .project-entry-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-entry-image {
+      aspect-ratio: 4/3;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      overflow: hidden;
+    }
+
+    .project-entry-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-entry-image-portrait {
+      aspect-ratio: 9/16;
+      width: 440px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: right;
+      justify-content: right;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      overflow: hidden;
+    }
+
+    .project-entry-image-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ─── LEGACY (unused but kept for tag styles) ─── */
+    .project-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+    }
+
+    .project-name {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .project-link {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .project-link:hover { text-decoration: underline; }
+
+    /* ─── BLOG ─── */
+    .blog-list {
+      padding: 3rem 2.5rem;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .blog-post {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: padding-left 0.2s;
+    }
+    .blog-post:hover { padding-left: 0.5rem; }
+    .blog-post:first-child { padding-top: 0; }
+
+    .blog-date {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-title {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+    .blog-post:hover .blog-title { color: var(--accent); }
+
+    .blog-excerpt {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .blog-full-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .blog-full-body p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+
+    .blog-full-body h2 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      margin: 2rem 0 0.75rem;
+    }
+
+    .blog-full-body h3 {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    .blog-full-body ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+
+    .blog-full-body ul li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.7;
+      margin-bottom: 0.25rem;
+    }
+
+    .blog-full-body ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-dim);
+    }
+
+    .blog-full-body ul ul {
+      margin-top: 0.25rem;
+      margin-left: 1rem;
+    }
+
+    .blog-full-body ul ul li::before {
+      content: '·';
+    }
+
+    .blog-full .blog-date {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* ─── ABOUT ─── */
+    .about-layout {
+      padding: 4rem 2.5rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4rem;
+      max-width: 1100px;
+    }
+
+    .about-content h2 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-content p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+
+    .skills-block { margin-top: 2.5rem; }
+
+    .skills-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-pill {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.8rem;
+      background: var(--bg-card);
+    }
+
+    .about-sidebar {}
+
+    .avatar-box {
+      aspect-ratio: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 1.5rem;
+      width: 320px;
+    }
+
+    .avatar-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;   /* crops to fill without stretching */
+      display: block;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .contact-key {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .contact-val {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-val a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .contact-val a:hover { text-decoration: underline; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      header { padding: 0 1.25rem; }
+      nav { padding: 0 1.25rem; }
+      .home-hero, .project-grid, .blog-list { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .section-header { padding: 2.5rem 1.25rem 2rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.25rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem 1.25rem; }
+      .home-grid { padding: 2rem 0; }
+      .home-card { padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <div class="header-top">
+      <a href="#" class="header-name" onclick="showPage('home')">Rowan Holder</a>
+      <div class="header-links">
+        <a href="https://www.linkedin.com/in/rowan-holder-a48584284" target="_blank" class="header-link">LinkedIn ↗</a>
+        <a href="RowanHolderResume.pdf" target="_blank" class="header-link btn">Resume</a>
+      </div>
+    </div>
+      <!-- ═══ NAV ═══ -->
+    <nav>
+      <button class="nav-tab active" data-page="home">Home</button>
+      <button class="nav-tab" data-page="gamedesign">Game Design</button>
+      <button class="nav-tab" data-page="software">Software Eng.</button>
+      <button class="nav-tab" data-page="blog">Blog</button>
+      <button class="nav-tab" data-page="about">About</button>
+    </nav>
+  </header>
+
+
+
+  <!-- ═══ MAIN ═══ -->
+  <main>
+
+    <!-- ── HOME ── -->
+    <div class="page active" id="page-home">
+      <div class="home-hero">
+        <p class="home-eyebrow">Portfolio — 2026</p>
+        <h1 class="home-title">
+          Rowan Holder <br />
+          <em>Game Designer & Software Engineer</em>
+        </h1>
+        <p class="home-subtitle">
+          Hello! I'm Rowan, and welcome to my portfolio. Here you'll find a selection of my work in game design and software engineering, along with some thoughts on design, development, and the creative process.
+        </p>
+        <div class="home-cta">
+          <a href="#" class="btn-primary" onclick="showPage('gamedesign')">View Work</a>
+          <a href="#" class="btn-secondary" onclick="showPage('about')">About Me</a>
+        </div>
+      </div>
+
+      <div class="home-grid">
+        <div class="home-card" onclick="showPage('gamedesign')">
+          <p class="home-card-label">01 — Game Design</p>
+          <h2 class="home-card-title">Game Design Projects</h2>
+          <p class="home-card-desc">Projects I'm working on and completed in game design.</p>
+        </div>
+        <div class="home-card" onclick="showPage('software')">
+          <p class="home-card-label">02 — Software Eng.</p>
+          <h2 class="home-card-title">Software Projects</h2>
+          <p class="home-card-desc">Software engineering projects I've worked on.</p>
+        </div>
+        <div class="home-card" onclick="showPage('blog')">
+          <p class="home-card-label">03 — Blog</p>
+          <h2 class="home-card-title">Articles and Reflections</h2>
+          <p class="home-card-desc">A log of things I've learned designing or thoughts on games I'm playing.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GAME DESIGN ── -->
+    <div class="page" id="page-gamedesign">
+      <div class="section-header">
+        <p class="section-label">Game Design</p>
+        <h1 class="section-title">Projects</h1>
+        <p class="section-desc">A selection of games I've designed and developed.</p>
+      </div>
+      <div class="project-list">
+
+        <div class="project-entry">
+          <div class="project-entry-text">
+            <h2 class="project-entry-title">Pharmini</h2>
+            <p class="project-entry-desc">
+              Pharmini is a real-time strategy resource management game designed to inspire interest in industrial engineering. Players build and upgrade labs and factories to support hospitals by producing and shipping materials. Throughout the game,
+              the player must allocate their money effectively as the map expands, more hospitals open, and new materials are unlocked.
+              <br/><br/>
+              I joined this project for a short time in the summer of 2024 to advise on the game's design as it was first transitioned from a physical prototype to a digital version being built in Godot, and I became the main designer on the project in 
+              the spring of 2025. In my year working on the project, I designed and reworked many of the game's core mechanics in order to improve game feel and player experience. I designed the system allowing labs to send orders to one another, wrote
+              the script for the game's tutorial, created the game's fog-of-war system, scripted questions for the game's choice system, and tuned the money balance with additional mechanics like operational building costs and increasing building costs.
+              <br/><br/>
+              While working on Pharmini, I have run and participated in weekly playtests of the most recent build with the team, and I have learned how to effectively communicate design decisions and changes to the team. The game will soon be launched on
+              mobile platforms and can currently be played in a web browser or on PC. The game is being developed by a small team of students at Arizona State University for a research project, and I am proud to be a part of it.
+              <br/><br/>
+              You can find my design work on the project <a href="https://drive.google.com/drive/folders/1o6lTLMyMl2k4qIM_0h3DK2VOVO0F0GNP" target="_blank">here</a>.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Godot</span>
+              <span class="tag">3D</span>
+              <span class="tag">Strategy</span>
+              <span class="tag">Mobile</span>
+              <span class="tag">PC</span>
+              <span class="tag">Web Browser</span>
+            </div>
+            <br/>
+            <a href="https://jadent183.itch.io/phar-mini" class="project-link" target="_blank">Play it on web! →</a>
+          </div>
+          <div class="project-entry-image"><img src="Pharmini_Photo.png"></div>
+        </div>
+
+        <div class="project-entry">
+          <div class="project-entry-text">
+            <h2 class="project-entry-title">Wayfinder</h2>
+            <p class="project-entry-desc">
+              Wayfinder is a tamagotchi-like spaceship idle game being developed in SwiftUI and SpriteKit. Players are given a spaceship that they can upgrade and send on missions to explore the galaxy. While their ship is on a journey, the player can see
+              their ship in an iOS widget that can be added to the home screen. Players will earn credits for completing missions and simultaneously accrue risk. Eventually, the ship will be destroyed once it's risk becomes too high, and the player will be
+              given a new ship to explore with. Each ship has unique stats, design, and specialities.
+              <br/><br/>
+              Wayfinder is a solo project I have been working on since April of 2026. The core loop of the game is in place, but the game is still actively being developed. Major designs within the core loop include the credit and risk systems, the ship 
+              upgrade system, and the mission system. For this game I also learned to do rudementary pixel art in order to create isometric ship designs as well as menu and background graphics. The game also uses procedural generation tools developed by 
+              Deep-Fold for the planets and backgrounds in the game. Check those out <a href="https://deep-fold.itch.io/pixel-planet-generator" target="_blank">here</a> and <a href="https://deep-fold.itch.io/space-background-generator" target="_blank">here</a>.
+              <br/><br/>
+              In the future, I plan to add more ships and better systems for long-term replayability and progression. This app will be released on the App Store once it is complete, and I will be sure to update this portfolio with a link to the app when it 
+              is available.
+            </p>
+            <div class="project-tags">
+              <span class="tag">SwiftUI</span>
+              <span class="tag">SpriteKit</span>
+              <span class="tag">Idle-Game</span>
+              <span class="tag">Tamagotchi-Like</span>
+              <span class="tag">iOS</span>
+            </div>
+            <br/>
+            <a href="https://docs.google.com/presentation/d/1FiJCrwTlIX867-6x-ecLzH5GC1zDRySZgECcEtONFJI/edit?usp=sharing" class="project-link" target="_blank">Presentation Link →</a>
+          </div>
+          <div class="project-entry-image"><img src="Wayfinder_Photo.png"></div>
+        </div>
+
+        <div class="project-entry">
+          <div class="project-entry-text">
+            <h2 class="project-entry-title">Omnidelver</h2>
+            <p class="project-entry-desc">
+              In Omnidelver, you are an adventurer looking to make a name for yourself. In this quest, you have decided to explore a dangerous dungeon, looking for Loot Monsters to earn money and gain fame. Deadly traps litter the dungeon, so be on your 
+              guard! You will sell the loot that you collect to purchase better equipment and useful items to aid in your exploration, allowing you to reach greater depths.
+              <br/><br/>
+              Omnidelver is a tabletop dungeon crawling card game that I designed and developed in the spring of 2024 for a game design class at Arizona State University. The game is designed to be played with 2-4 players with multiple win conditions being
+              present within the game such as collecting a lot of loot, killing a lot of monsters, or exploring the entire dungeon. The main mechanic I was most proud of was the combat system, which utilized a d6 and d8 when rolling for combat and allowed
+              players to use either dice for attack or defense, creating dynamic and strategic fighting scenarios.
+              <br/><br/>
+              While the game is complete and playable, it share a lot of similarities to other dungeon crawling tabletop games like Munchkin and Hero Quest while in turn not being finely tuned for a balanced game and a professional release. Regardless, I learned
+              a lot about game design iterating on and playtesting this game, and the lessons I learned while developing it have influenced my design decisions in other projects since.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Tabletop</span>
+              <span class="tag">Dungeon Crawling</span>
+              <span class="tag">Card Game</span>
+            </div>
+            <br/>
+            <a href="https://drive.google.com/drive/folders/1TPYQ_PoAlIdRbDcAV7fw0si2GpJ7PUsR?usp=sharing" class="project-link" target="_blank">Rules and Design Work →</a>
+          </div>
+          <div class="project-entry-image"><img src="Omnidelver_Photo.png"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SOFTWARE ── -->
+    <div class="page" id="page-software">
+      <div class="section-header">
+        <p class="section-label">Software Engineering</p>
+        <h1 class="section-title">Projects</h1>
+        <p class="section-desc">A selection of software and websites I've created.</p>
+      </div>
+      <div class="project-list">
+
+        <div class="project-entry">
+          <div class="project-entry-text">
+            <h2 class="project-entry-title">MTG Token Finder</h2>
+            <p class="project-entry-desc">
+              There are over 400 token created by the over 29000 cards printed for Magic: The Gathering since 1993. Finding tokens that match cards printed ten or twenty years ago can be difficult or expensive. MTG Token Finder is an app that allows
+              players to digitally track their tokens in games and for their decks. Players can scan their cards using their phone's camera, and the picture will be processed using the iOS Vision framework to identify the card. The card's name is then
+              used to query the Scryfall database for the card's associated tokens, which are then displayed to the user. Furthermore, a set of tokens can be saved and associated with a player's deck, allowing them to quickly find and load the tokens they
+              need for their games. The app features a screen to allow tokens to be tracked including how many of each token the player has and how many have been used during the turn, along with control to clear the gallery view or start a new turn.
+              <br/><br/>
+              I am currently developing this app as an applied project to complete my Master's in Robotics and Autonomous Systems at Arizona State University. The app is being developed using SwiftUI and uses the Scryfall APIs to query the card database.
+              I strive to build software that I would use myself, and as a long-time Magic: The Gathering player, I know this is something I will use and that other players will find useful. When I complete the app, I will add a link to the app here so 
+              you can download it and test it yourself!
+            </p>
+            <div class="project-tags">
+              <span class="tag">iOS</span>
+              <span class="tag">SwiftUI</span>
+              <span class="tag">Mobile Development</span>
+            </div>
+          </div>
+          <div class="project-entry-image-portrait"><img src="MTGTokenFinder_Photo.png"></div>
+        </div>
+
+        <div class="project-entry">
+          <div class="project-entry-text">
+            <h2 class="project-entry-title">Adversarial Planning Simulation</h2>
+            <p class="project-entry-desc">
+              To learn about planning algorithms for a course final project, I developed a pursuit evasion simulation where a Goal-Oriented Action Planner (GOAP) works as the Pursuer against a reinforcement learning agent that acts as the Evader. The RL agent
+              learns to evade the GOAP agent for 250 moves in a discrete 16-by-16 2D grid. This simulation also features modules to change the actions the pursuer can take, how the training works for the evader, and how the environment is initialized. The
+              simulation was developed in HTML. The most rewarding part of this project was tuning the reinforcement learning agent's reward function. The biggest improvement was to reward the evader for maintaining a safe distance from the GOAP agent without
+              being too far away, which allowed for the emergence of kiting behavior. A link to a paper I wrote about this can be found <a href="CSE_574_Final_Report.pdf" target="_blank">here</a>. Test is yourself with the link below!
+            </p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Web Development</span>
+              <span class="tag">Reinforcement Learning</span>
+              <span class="tag">Planning</span>
+            </div>
+            <br/>
+            <a href="#" class="project-link" onclick="showPage('planningSim')">Try out the Simulation →</a>
+          </div>
+          <div class="project-entry-image"><img src="PlanningSim_Photo.png"></div>
+        </div>
+
+        <div class="project-entry">
+          <div class="project-entry-text">
+            <h2 class="project-entry-title">D3 Scrollytelling Group Project</h2>
+            <p class="project-entry-desc">
+              I worked with a group of students in my computer visualization class to create a scrollytelling story using D3 for our final project. The topic of the story was whether cats or dogs were the better pet by any metric, and we used real data to create
+              visualizations to present each animal's case. The best visualization I created was a combinatorial visualization that showed the most-owned pets in each state and correlated these with Myers-Briggs personality type data by state shown on a radar chart
+              (pictured right). This project gave me a lot of practice reading and debugging other developers work, especially because some of the team members needed to focus on other projects or travel towards the end of the semester. This was a fun project with a 
+              light-hearted topic, and it allowed me to work with and visualize data, one of my favorite development tasks. You can read a report I wrote on this project <a href="ScrollytellingReflection.pdf" target="_blank">here</a>.
+            </p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">D3</span>
+              <span class="tag">TopoJSON</span>
+              <span class="tag">Scrollama</span>
+              <span class="tag">Scrollytelling</span>
+              <span class="tag">Web Development</span>
+              <span class="tag">Computer Visualization</span>
+              <span class="tag">Debugging</span>
+            </div>
+            <br/>
+            <a href="https://github.com/asu-cse578-f2025/Aditya-Brennan-DeJuan-Jessica-Nicholas-Rowan" class="project-link" target="_blank">Github →</a>
+          </div>
+          <div class="project-entry-image"><img src="Scrollytelling_Photo.png"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── BLOG ── -->
+    <div class="page" id="page-blog">
+      <div class="section-header">
+        <p class="section-label">Blog</p>
+        <h1 class="section-title">My Thoughts and Deeds</h1>
+        <p class="section-desc">Articles expressing my thoughts on games, game design, and software engineering.</p>
+      </div>
+      <div class="blog-list">
+
+        <article class="blog-post" onclick="loadPost('blog/post-1.html')">
+          <p class="blog-date">May 29, 2026</p>
+          <h2 class="blog-title">A Riftbound Set 3 Meta Guide</h2>
+          <p class="blog-excerpt">I made a meta guide for a friend preparing for the Riftbound Regional Qualifier in Vancouver.</p>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="page" id="page-blogpost">
+      <div style="padding: 1rem 2.5rem; border-bottom: 1px solid var(--border);">
+        <button class="btn-secondary" onclick="showPage('blog')">← Back to Blog</button>
+      </div>
+      <div class="blog-post-content" id="blog-post-content" style="padding: 3rem 2.5rem; max-width: 720px;">
+
+      </div>
+    </div>
+
+    <!-- ── ABOUT ── -->
+    <div class="page" id="page-about">
+      <div class="section-header">
+        <p class="section-label">About</p>
+        <h1 class="section-title">Hello! I'm Rowan.</h1>
+      </div>
+      <div class="about-layout">
+
+        <div class="about-content">
+          <p>
+            I'm a game designer and software engineer. When making games, I focus on game feel and player experience when designing games while crafting unique mechanics and developing interesting systems for them. In my free time, I'm always looking
+            for new games to study and play. In turn, my education at Arizona State University has made me a competent software engineer, allowing me to develop the games I design and good software.
+          </p>
+          <p>
+            Games have been my passion for my whole life; they are how I developed relationships throughout my childhood and what I studied every day to develop strategies and understand their design. I particularly enjoy trading card games, but I have
+            played every kind of game I can find. My interest in video games drew me to study Computer Science, and I have been learning to develop software and formally studying game design since then.
+          </p>
+          <p>
+            I'm currently the game designer for Pharmini, a real-time strategy resource management game meant to inspire interest in industrial engineering, and I am working on a solo project called Wayfinder, a tamagotchi-like spaceship idle game. I 
+            play Riftbound, the League of Legends trading card game, competitively since its release, and I am currently studying classic tabletop games such as Dominoes and Cribbage to understand their design and mechanics. I am completing my Master's 
+            in Robotics and Autonomous Systems at Arizona State University, and I am looking for opportunities to work in game design or software engineering after graduation.
+          </p>
+
+          <div class="skills-block">
+            <p class="skills-label">Tools & Technologies</p>
+            <div class="skills-list">
+              <span class="skill-pill">Unity</span>
+              <span class="skill-pill">Godot</span>
+              <span class="skill-pill">HTML/JavaScript/CSS</span>
+              <span class="skill-pill">C/C++</span>
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">C#</span>
+              <span class="skill-pill">Figma</span>
+              <span class="skill-pill">Git</span>
+              <span class="skill-pill">Machinations</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-sidebar">
+          <div class="avatar-box"><img src="RowanHolder.jpg"></div>
+          <div class="contact-list">
+            <div class="contact-item">
+              <span class="contact-key">Location</span>
+              <span class="contact-val">Tempe, Arizona</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-key">Email</span>
+              <span class="contact-val"><a href="mailto:rowanholder1@gmail.com">rowanholder1@gmail.com</a></span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-key">LinkedIn</span>
+              <span class="contact-val"><a href="https://www.linkedin.com/in/rowan-holder-a48584284" target="_blank">linkedin.com/in/rowan-holder-a48584284</a></span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-key">GitHub</span>
+              <span class="contact-val"><a href="https://github.com/Rwholde1" target="_blank">github.com/Rwholde1</a></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="page" id="page-planningSim">
+      <div style="padding: 1.5rem 2.5rem; border-bottom: 1px solid var(--border);">
+        <button class="btn-secondary" onclick="showPage('software')">← Back to Software Engineering</button>
+      </div>
+      <iframe 
+        src="projects/planningSim/index.html" 
+        style="width: 100%; height: calc(100vh - 180px); border: none; display: block;">
+      </iframe>
+    </div>
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <span>Rowan Holder</span>
+  </footer>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      const page = document.getElementById('page-' + id);
+      const tab = document.querySelector('[data-page="' + id + '"]');
+      if (page) page.classList.add('active');
+      if (tab) tab.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', () => showPage(tab.dataset.page));
+    });
+
+    // Fade-in on page switch
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(m => {
+        if (m.target.classList.contains('active')) {
+          m.target.style.opacity = 0;
+          requestAnimationFrame(() => {
+            m.target.style.transition = 'opacity 0.25s ease';
+            m.target.style.opacity = 1;
+          });
+        }
+      });
+    });
+    document.querySelectorAll('.page').forEach(p => {
+      observer.observe(p, { attributes: true, attributeFilter: ['class'] });
+    });
+
+    function loadPost(url) {
+      fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('blog-post-content').innerHTML = html;
+          showPage('blogpost');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+</script>
+</body>
+</html>
