@@ -517,6 +517,28 @@
       display: block;
     }
 
+    .blog-image {
+      aspect-ratio: 4/3;
+      width: 500px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      overflow: hidden;
+    }
+
+    .blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     /* ─── ABOUT ─── */
     .about-layout {
       padding: 4rem 2.5rem;
@@ -897,6 +919,12 @@
       </div>
       <div class="blog-list">
 
+        <article class="blog-post" onclick="loadPost('blog/post-2.html')">
+          <p class="blog-date">June 5, 2026</p>
+          <h2 class="blog-title">Realism in Game Design: Making Mechanics that Reflect Reality</h2>
+          <p class="blog-excerpt">While working on Pharmini, I designed a mechanic that felt to gamey for the game's realistic vision. I explore how I solved this issue and the place of realism in games.</p>
+        </article>
+        
         <article class="blog-post" onclick="loadPost('blog/post-1.html')">
           <p class="blog-date">May 29, 2026</p>
           <h2 class="blog-title">A Riftbound Set 3 Meta Guide</h2>
