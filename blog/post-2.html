@@ -1,0 +1,112 @@
+<article class="blog-full">
+  <p class="blog-date">June 5, 2026</p>
+  <h1 class="blog-full-title">Realism in Game Design: Making Mechanics that Reflect Reality</h1>
+
+  <div class="blog-full-body">
+
+    <p>
+        When designing for Pharmini, one of the most important lessons I learned was that
+        I needed to design mechanics that fit the game’s level of realism. Pharmini’s 
+        goal is to inspire interest in industrial engineering, which means that the game 
+        needs to work like a simulation in which players embody the profession. I fell 
+        short of this when designing a mechanic to rebalance the amount of money the 
+        player obtained throughout the game. In the late stages of the game, the player
+        was able to accumulate and save too much money, which in turn meant that all 
+        other systems felt arbitrary. The player could build and subsequently max out 
+        a lab or factory without putting a dent in their savings once they were set up,
+        which made the game lose replayability. In conjunction with the excessive 
+        amounts of money players could accumulate, a playtester had found a strategy 
+        for the game in which they placed many labs and factories to support each 
+        hospital in order to ensure that no lab was burdened with too many orders and 
+        were always supplied with materials. I felt this strategy went against the 
+        spirit of the game; I wanted players to have to carefully choose the positions 
+        of their labs and factories in order to support their hospitals, and the issues
+        with money helped to jeopardize this by allowing players to earn more money 
+        than they needed. As such, I knew a change was necessary.
+    </p>
+
+    <p>
+        The goal was to make the placement of labs and factories feel more meaningful 
+        while simultaneously making building them more expensive, curbing the excessive 
+        amount of extra cash gathered by the end of the game. I approached the game design
+        problem with a game design sensibility, and what I identified was that the prices
+        of buildings were static throughout the game and very low once the late game was
+        reached. This gave me the idea to exponentially increase the price of buildings
+        based on how many the player had built, which would simultaneously make the 
+        price of buildings in the late game higher as well as place a “soft cap” on the
+        number of buildings a player could place as the price became unreachable. I 
+        developed an equation, modeled it, and playtested with the mechanic 
+        implemented.
+    </p>
+
+    <div class="blog-image"><img src="/blog/post-2_photo-1.png"></div>
+    <p>The Normal difficulty curve for exponential build price increase</p>
+    <br>
+    <p>
+        The mechanical change was very successful, receiving positive feedback during 
+        playtesting and solving the issues that it needed to solve. Players were still 
+        earning a lot of money, but the money they were earning was being saved to be 
+        spent on a large purchase, not saved endlessly to make the game unloseable. The 
+        high costs in turn made it impossible to frivolously build to support one 
+        hospital: placing buildings thoughtfully was much more important. The mechanic 
+        solved the game design issues with Pharmini successfully.
+    </p>
+
+    <p>
+        However, the mechanic did not fit with the realistic simulation the game hoped to
+        give players. Exponentially increasing cost is a very gamey mechanic. Companies 
+        don’t endure exponentially increasing costs on a factory because they own three 
+        others: the cost of property is based on its location and surrounding infrastructure.
+        I had solved a realistic game’s problem with a solution that didn’t acknowledge 
+        that realistic aspect of the game. It was a very obvious flaw once someone else 
+        pointed it out, but I was so focused on solving the problem and the positive results
+         of my solution. There are other aspects of Pharmini that are unrealistic: for 
+         example, a building costs $500 in game, which it obviously doesn’t in the real 
+         world. But exponential price increase is a model for the expansion of an 
+         industrial engineering company, so it needs to be realistic in order for the rest
+          of the simulation to be cohesive. 
+    </p>
+
+    <p>
+        This issue made me think a lot about the cross-section between fun and realism. 
+        In most first-person shooters, a health bar is used rather than forcing players to
+        aim for vulnerable areas. The result is a more fun game due to this simplification.
+        But Escape From Tarkov is more fun to some because it provides realism other games 
+        don’t, such as using the correct ammo types for guns or bandaging and healing 
+        appendages in certain ways. Realism increases the stakes of the game, making it more
+        intense and more fun. But splinting a leg would be untenable in Call of Duty because
+        it would break up the fast-paced action the games are known for poorly. Even more 
+        interesting is that both games require realism to a certain extent. Guns need to look,
+        feel, and sound a certain way to create a combat experience. As such, knowing how 
+        realistic a game needs to be is important to how mechanics are designed and how they 
+        combine to create the game’s feel for the player.
+    </p>
+
+    <p>
+        With the identification of the unrealistic nature of exponential build price 
+        increase, I went back to the drawing board with the general idea from the lead 
+        designer of an operational cost for buildings. When designing for this problem, 
+        I was more conscious of the realism necessary for the game and focused on managing
+        players’ money throughout the game rather than just at the end. Operating costs 
+        aided greatly in this focus, so I developed an equation for how much the player 
+        would need to pay for each of their buildings each round. I tied operating cost to
+        a system of maintenance for buildings that required players to keep track of their
+        operating cost in order to keep their buildings functional. I also designed a new 
+        system to increase the price of building new labs and factories which worked off
+        of surrounding buildings and the current round rather than an exponential model.
+    </p>
+
+    <p>
+        These design changes solidified some of the last holes in the game’s design. The 
+        player’s money is now managed throughout the game, and it gave room for some 
+        interesting additions in the early game to increase engagement. This change also 
+        led to improved city generation by having a city be initially generated rather 
+        than only be generated with hospitals, making building cost more impactful. This 
+        design solution solved the problem better while also maintaining the level of 
+        realism the game needed. Understanding this level of realism is very important to 
+        designing a game correctly, and I’m glad to have learned this lesson and corrected
+        my mistake.
+    </p>
+
+  </div>
+</article>
